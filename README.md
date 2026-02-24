@@ -61,17 +61,16 @@ Then open [http://localhost:5173](http://localhost:5173). The Vite dev server pr
 
 ## Assumptions & Design Decisions
 
-- **React + TypeScript with Vite** for a component-based, type-safe frontend. The frontend runs as a separate dev server and proxies `/api` requests to the Go backend.
-- **Login form detection** uses a heuristic: a `<form>` is considered a login form if it contains an `<input>` with `type="password"` or a `name`/`id` containing "password" or "login".
-- **Link accessibility** is checked via concurrent HEAD requests.
-- **Bounded concurrency** (~10 goroutines) for link checking to avoid overwhelming target servers, coordinated with a mutex and semaphore channel.
+- **React + TypeScript with Vite** for a component-based frontend.
+- **Login form detection**: a `<form>` is considered a login form if it contains an `<input>` with `type="password"` or a `name`/`id` containing "password" or "login".
+- **Link accessibility** is checked via concurent requests.
+
 - **HTML version detection** inspects the DOCTYPE node's public identifier to classify HTML5, HTML 4.01, XHTML 1.0/1.1, or Unknown.
 
 ## Future Improvements
 
 - Caching of analysis results.
 - Rate limiting.
-- Support for JavaScript-rendered pages (headless browser).
 - Persistent storage of past analyses.
 - `embed.FS` for single-binary deployment (embed frontend build output in the Go binary).
 - Configurable fetch timeout via flag or environment variable.
